@@ -8,10 +8,10 @@ npm install
 ```
 
 ## Index file:
-- index.js [backend/index.js](https://github.com/danaespentz/ntua-software-engineering/blob/master/backend/index.js)
+- index.js [backend/index.js](https://github.com/danaespentz/ntua-software-engineering/blob/main/back-end/index.js)
 
 ## Connection with PostgreSQL Database:
-- connect.js [backend/connect.js](https://github.com/danaespentz/ntua-software-engineering/blob/master/backend/connect.js)
+- connect.js [backend/connect.js](https://github.com/danaespentz/ntua-software-engineering/blob/main/back-end/connect.js)
 
 ## API Functional Endpoints:
 - bygenre.js
