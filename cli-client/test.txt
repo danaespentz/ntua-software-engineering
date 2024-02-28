@@ -1,0 +1,15 @@
+node index.js healthcheck 
+
+node index.js resetall
+
+node index.js title --titleID tt0099115
+node index.js name --nameID nm0000147
+
+node index.js searchtitle  --titlepart Hen 
+node index.js searchname --namepart Federico --format json
+
+node index.js bygenre --genre Action --min 5 --to 1990 --format json
+node index.js bygenre --genre Action --min 5 --to 1990 --format csv
+
+node index.js user --username danae
+node index.js adduser --username danae --password d

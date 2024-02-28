@@ -1,0 +1,188 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    <style>
+        .movie-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .movie-card {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background-color: #fff;
+            max-height: 400px;
+        }
+
+        .movie-card img {
+            max-width: 100%;
+            height: auto;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            max-height: 60%;
+            object-fit: cover;
+        }
+
+        .movie-details {
+            padding: 10px;
+            text-align: left;
+            height: 40%;
+            overflow: hidden;
+        }
+
+        .movie-details h2 {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .movie-details p {
+            margin: 2px 0;
+            font-size: 12px;
+        }
+
+        .movie-details strong {
+            font-weight: bold;
+        }
+
+        .movie-details img {
+            height: 1em;
+            vertical-align: middle;
+        }
+
+        .go-back {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: #868282;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .actor-biography {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-height: 300px;
+            overflow: auto;
+        }
+
+        #preference_buttons_container{
+            dislike: flex;
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .like-button, .dislike-button {
+            padding: 10px, 15px;
+            font_size: 16px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% extends "layout.html" %}
+
+{% block body %}
+    <div>
+        {% if actorBiography %}
+            <div class="actor-biography">
+                <h2>{{ actorName }}</h2>
+                <p>{{ actorBiography }}</p>
+            </div>
+        {% endif %}
+        <div class="movie-cards">
+            {% if result %}
+                <div class="movie-card" data-title-id="{{ result['title_id'] }}">
+                    {% if result['img_url_asset'] != 'N/A' %}
+                        <img src="{{ result['img_url_asset'] }}" alt="{{ result['originalTitle'] }} cover">
+                    {% else %}
+                        <p>No poster available</p>
+                    {% endif %}
+                    <div class="movie-details">
+                        <h2>{{ result['originalTitle'] }} ({{ result['startYear'] }}{% if result['endYear'] %} - {{ result['endYear'] }}{% endif %})</h2>
+                        <p><strong>Runtime:</strong> {{ result['runtimeMinutes'] }} minutes</p>
+                        <p><strong>Genres:</strong> {{ result['genres'] }}</p>
+                        <p><strong>Rating <img src='star.jpg'></strong> {{ result['rating'] }}</p>
+                        <div id="preference_buttons_container">
+                            <button class="like-button" data-preference="like"> Like </button>
+                            <button class="dislike-button" data-preference="dislike">Dislike </button>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if list %}
+                {% for result in list %}
+                    <div class="movie-card" data-title-id="{{ result['title_id'] }}">
+                        {% if result['img_url_asset'] != 'N/A' %}
+                            <img src="{{ result['img_url_asset'] }}" alt="{{ result['originalTitle'] }} cover">
+                        {% else %}
+                            <p>No poster available</p>
+                        {% endif %}
+                        <div class="movie-details">
+                            <h2>{{ result['originalTitle'] }} ({{ result['startYear'] }}{% if result['endYear'] %} - {{ result['endYear'] }}{% endif %})</h2>
+                            <p><strong>Runtime:</strong> {{ result['runtimeMinutes'] }} minutes</p>
+                            <p><strong>Genres:</strong> {{ result['genres'] }}</p>
+                            <p><strong>Rating <img src='star.jpg'></strong> {{ result['rating'] }}</p>
+                            <div id="preference_buttons_container">
+                                <button class="like-button" data-preference="like"> Like </button>
+                                <button class="dislike-button" data-preference="dislike"> Dislike </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <a href="/" class="go-back">Go back to search</a>
+        {% if error %}
+            <p style="background-color: rgba(0, 0, 0, 0.8); border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.5); color: #c54d4d;">{{ error }}</p>
+        {% endif %}
+    </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const likeButtons = document.querySelectorAll('.like-button');
+              const dislikeButtons = document.querySelectorAll('.dislike-button');
+              
+              // Example function to handle like/dislike button click
+              // This needs to be adapted to capture the user ID from your session and movie ID
+              function handlePreferenceClick(event) {
+                const titleId = event.target.closest('.movie-card').getAttribute('data-title-id');
+                const preference = event.target.getAttribute('data-preference');
+                
+                
+                console.log(`Button clicked: Title ID - ${titleId}, preference - ${preference}`);
+
+                fetch('/result', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ titleId, preference }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => console.log('Preference saved:', data))
+                .catch(error => console.error('Error saving preference:', error));
+              }
+            
+              likeButtons.forEach(button => button.addEventListener('click', handlePreferenceClick));
+              dislikeButtons.forEach(button => button.addEventListener('click', handlePreferenceClick));
+            });
+            </script>
+            
+        
+        
+{% endblock %}

@@ -1,0 +1,79 @@
+####
+
+GET  https://localhost:9876/ntuaflix/api/admin/healthcheck
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/resetall
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/upload/titlebasics
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/upload/namebasics
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/upload/titleakas
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/upload/titlecrew
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/upload/titleepisode
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/upload/titleprincipals
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/upload/titleratings
+
+####
+
+POST https://localhost:9876/ntuaflix/api/login?user_name=danae&user_password=danae
+
+####
+
+POST https://localhost:9876/ntuaflix/api/logout
+
+####
+
+GET https://localhost:9876/ntuaflix/api/bygenre?qgenre=Action&minrating=5&yrFrom=&yrTo=1990&format=csv
+
+###
+
+GET https://localhost:9876/ntuaflix/api/searchname?namePart=Amanda&format=csv
+
+####
+
+GET https://localhost:9876/ntuaflix/api/searchname?namePart=Federico&format=json
+
+####
+
+GET https://localhost:9876/ntuaflix/api/name/nm0000147?format=json
+
+####
+
+GET  https://localhost:9876/ntuaflix/api/searchtitle?titlePart=Hen
+
+####
+
+GET  https://localhost:9876/ntuaflix/api/title/tt0099115?format=csv
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/userInfo/stavros
+
+####
+
+POST https://localhost:9876/ntuaflix/api/admin/userMod/stavros/stav
+
+
+
+
