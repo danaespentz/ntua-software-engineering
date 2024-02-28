@@ -34,10 +34,10 @@
 Run webserver with : `node backend/index.js`
 
 ## API 
-[API Documentation](https://github.com/danaespentz/ntua-software-engineering/api/README.md)
+[API Documentation](https://github.com/danaespentz/ntua-software-engineering/blob/main/api/README.md)
 
 ## CLI
-[CLI Documentation](https://github.com/danaespentz/ntua-software-engineering/cli-client/README.md)
+[CLI Documentation](https://github.com/danaespentz/ntua-software-engineering/blob/main/cli-client/README.md)
 
 ## Front end 
 Tools used : 
