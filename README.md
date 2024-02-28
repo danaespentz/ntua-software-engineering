@@ -30,7 +30,8 @@
   - `https://localhost:9876/ntuaflix/api/admin/upload/titleepisode`
   - `https://localhost:9876/ntuaflix/api/admin/upload/titleprincipals`
   - `https://localhost:9876/ntuaflix/api/admin/upload/titleratings`
-1. Run webserver with : `node backend/index.js`
+
+Run webserver with : `node backend/index.js`
 
 ## API 
 [API Documentation](https://github.com/danaespentz/ntua-software-engineering/edit/main/api/README.md)
